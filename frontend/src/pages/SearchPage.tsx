@@ -73,7 +73,6 @@ const SearchPage = memo(() => {
               <MapComponent 
                 fromCity={fromCity}
                 toCity={toCity}
-                services={services}
                 shouldUpdate={shouldUpdateMap}
               />
             </div>
