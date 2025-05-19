@@ -19,6 +19,9 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   loading,
   onSubmit
 }) => {
+  // Filtrar las ciudades disponibles para el campo "To City"
+  const availableToCities = cities.filter(city => city !== fromCity);
+
   return (
     <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
       <form onSubmit={onSubmit} className="space-y-6">
@@ -30,7 +33,13 @@ export const SearchForm: React.FC<SearchFormProps> = ({
             <select
               id="fromCity"
               value={fromCity}
-              onChange={(e) => setFromCity(e.target.value)}
+              onChange={(e) => {
+                setFromCity(e.target.value);
+                // Si la ciudad seleccionada es la misma que la ciudad de destino, resetear la ciudad de destino
+                if (e.target.value === toCity) {
+                  setToCity('');
+                }
+              }}
               className="w-full px-4 py-3 pr-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none text-base"
               required
             >
@@ -48,6 +57,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
             </div>
           </div>
         </div>
+        
         <div>
           <label htmlFor="toCity" className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
             To City
@@ -61,7 +71,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
               required
             >
               <option value="">Select destination city</option>
-              {cities.map((city) => (
+              {availableToCities.map((city) => (
                 <option value={city} key={city}>
                   {city}
                 </option>

@@ -1,6 +1,10 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import axios from 'axios';
 import type { TransportService } from '../types/transport';
+import { debounce } from 'lodash';
+
+const CITIES_CACHE_KEY = 'cached_cities';
+const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
 
 export const useTransportServices = () => {
   const [fromCity, setFromCity] = useState('');
@@ -10,14 +14,35 @@ export const useTransportServices = () => {
   const [error, setError] = useState('');
   const [cities, setCities] = useState<string[]>([]);
 
-  useEffect(() => {
-    // Fetch available cities from backend
-    axios.get('http://localhost:8000/api/cities')
-      .then(res => setCities(res.data))
-      .catch(() => setCities([]));
+  const fetchCities = useCallback(async () => {
+    try {
+      const cachedData = localStorage.getItem(CITIES_CACHE_KEY);
+      if (cachedData) {
+        const { cities: cachedCities, timestamp } = JSON.parse(cachedData);
+        if (Date.now() - timestamp < CACHE_EXPIRY) {
+          setCities(cachedCities);
+          return;
+        }
+      }
+
+      const response = await axios.get('http://localhost:8000/api/cities');
+      const citiesData = response.data;
+      setCities(citiesData);
+      localStorage.setItem(CITIES_CACHE_KEY, JSON.stringify({
+        cities: citiesData,
+        timestamp: Date.now()
+      }));
+    } catch (error) {
+      console.error('Error fetching cities:', error);
+      setCities([]);
+    }
   }, []);
 
-  const searchServices = async () => {
+  useEffect(() => {
+    fetchCities();
+  }, [fetchCities]);
+
+  const searchServices = useCallback(debounce(async () => {
     setLoading(true);
     setError('');
     setServices([]);
@@ -39,7 +64,7 @@ export const useTransportServices = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, 300), [fromCity, toCity, cities]);
 
   return {
     fromCity,

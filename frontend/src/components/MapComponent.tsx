@@ -5,6 +5,7 @@ interface MapComponentProps {
   fromCity: string;
   toCity: string;
   services: any[];
+  shouldUpdate: boolean;
 }
 
 const containerStyle = {
@@ -17,7 +18,7 @@ const defaultCenter = {
   lng: 0
 };
 
-const MapComponent: React.FC<MapComponentProps> = ({ fromCity, toCity, services }) => {
+const MapComponent: React.FC<MapComponentProps> = ({ fromCity, toCity, services, shouldUpdate }) => {
   const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null);
   const [map, setMap] = useState<google.maps.Map | null>(null);
   const [error, setError] = useState<string | null>(null);
@@ -38,7 +39,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ fromCity, toCity, services 
   }, []);
 
   React.useEffect(() => {
-    if (!isLoaded || !map || !fromCity || !toCity) return;
+    if (!isLoaded || !map || !fromCity || !toCity || !shouldUpdate) return;
 
     const directionsService = new google.maps.DirectionsService();
     
@@ -63,7 +64,7 @@ const MapComponent: React.FC<MapComponentProps> = ({ fromCity, toCity, services 
         }
       }
     );
-  }, [isLoaded, map, fromCity, toCity]);
+  }, [isLoaded, map, fromCity, toCity, shouldUpdate]);
 
   const handleRouteSelect = (index: number) => {
     setSelectedRoute(index);

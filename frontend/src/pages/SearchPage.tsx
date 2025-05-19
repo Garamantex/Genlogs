@@ -1,11 +1,11 @@
-import React from 'react';
+import { useState, useCallback, memo } from 'react';
 import logo from '../assets/logo.png';
 import { SearchForm } from '../components/SearchForm';
 import { ServicesList } from '../components/ServicesList';
 import MapComponent from '../components/MapComponent';
 import { useTransportServices } from '../hooks/useTransportServices';
 
-const SearchPage: React.FC = () => {
+const SearchPage = memo(() => {
   const {
     fromCity,
     setFromCity,
@@ -18,10 +18,13 @@ const SearchPage: React.FC = () => {
     searchServices
   } = useTransportServices();
 
-  const handleSearch = (e: React.FormEvent) => {
+  const [shouldUpdateMap, setShouldUpdateMap] = useState(false);
+
+  const handleSearch = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     searchServices();
-  };
+    setShouldUpdateMap(prev => !prev);
+  }, [searchServices]);
 
   return (
     <div className="min-h-screen w-full bg-white dark:bg-gray-900 flex items-center justify-center">
@@ -55,16 +58,21 @@ const SearchPage: React.FC = () => {
 
           {/* Right Column: Map */}
           <div className="flex items-start justify-center w-full">
-            <MapComponent 
-              fromCity={fromCity}
-              toCity={toCity}
-              services={services}
-            />
+            <div className="min-w-[600px] max-w-[600px] w-[600px]">
+              <MapComponent 
+                fromCity={fromCity}
+                toCity={toCity}
+                services={services}
+                shouldUpdate={shouldUpdateMap}
+              />
+            </div>
           </div>
         </div>
       </div>
     </div>
   );
-};
+});
+
+SearchPage.displayName = 'SearchPage';
 
 export default SearchPage; 
