@@ -1,5 +1,5 @@
 import { useCallback, useState, memo, useEffect } from 'react';
-import { GoogleMap, useJsApiLoader, DirectionsRenderer } from '@react-google-maps/api';
+import { GoogleMap, useJsApiLoader, DirectionsRenderer, Marker } from '@react-google-maps/api';
 import type { TransportService } from '../types/transport';
 
 /**
@@ -104,6 +104,12 @@ const MapComponent = memo(({ fromCity, toCity, services, shouldUpdate }: MapComp
     );
   }, [isLoaded, map, fromCity, toCity, shouldUpdate]);
 
+  useEffect(() => {
+    setDirections(null);
+    setSelectedRoute(0);
+    setError(null);
+  }, [fromCity, toCity, shouldUpdate]);
+
   if (loadError) {
     return (
       <div 
@@ -178,6 +184,7 @@ const MapComponent = memo(({ fromCity, toCity, services, shouldUpdate }: MapComp
         aria-label={`Map showing route from ${fromCity} to ${toCity}`}
       >
         <GoogleMap
+          key={`${fromCity}-${toCity}`}
           mapContainerStyle={containerStyle}
           onLoad={onLoad}
           onUnmount={onUnmount}
@@ -186,17 +193,27 @@ const MapComponent = memo(({ fromCity, toCity, services, shouldUpdate }: MapComp
           options={mapOptions}
         >
           {directions && (
-            <DirectionsRenderer
-              directions={directions}
-              options={{
-                routeIndex: selectedRoute,
-                suppressMarkers: false,
-                polylineOptions: {
-                  strokeColor: selectedRoute === 0 ? '#4285F4' : '#34A853',
-                  strokeWeight: 5,
-                },
-              }}
-            />
+            <>
+              <DirectionsRenderer
+                directions={directions}
+                options={{
+                  routeIndex: selectedRoute,
+                  suppressMarkers: true,
+                  polylineOptions: {
+                    strokeColor: selectedRoute === 0 ? '#4285F4' : '#34A853',
+                    strokeWeight: 5,
+                  },
+                }}
+              />
+              <Marker
+                position={directions.routes[selectedRoute].legs[0].start_location}
+                label="A"
+              />
+              <Marker
+                position={directions.routes[selectedRoute].legs[0].end_location}
+                label="B"
+              />
+            </>
           )}
         </GoogleMap>
       </div>
