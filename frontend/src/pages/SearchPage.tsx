@@ -32,7 +32,7 @@ const SearchPage = memo(() => {
         {/* Header with logo and title */}
         <div className="flex flex-col items-center justify-center mb-10 gap-2 sm:flex-row sm:items-center sm:justify-between">
           <img src={logo} alt="Logo" className="w-40 sm:w-64 object-contain" />
-          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white text-center sm:text-left flex-1">Transport Services Search</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white md:text-center sm:text-left flex-1">Transport Services Search</h1>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left Column: Filters and Results */}
