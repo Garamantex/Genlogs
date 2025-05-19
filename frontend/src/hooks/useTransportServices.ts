@@ -48,7 +48,7 @@ export const useTransportServices = () => {
         }
       }
 
-      const response = await axios.get('http://localhost:8000/api/cities');
+      const response = await axios.get('https://genlogs.onrender.com//api/cities');
       const citiesData = response.data;
       setCities(citiesData);
       localStorage.setItem(CITIES_CACHE_KEY, JSON.stringify({
