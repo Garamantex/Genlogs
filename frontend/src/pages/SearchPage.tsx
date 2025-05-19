@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../assets/logo.png';
 import { SearchForm } from '../components/SearchForm';
 import { ServicesList } from '../components/ServicesList';
-import { MapPlaceholder } from '../components/MapPlaceholder';
+import MapComponent from '../components/MapComponent';
 import { useTransportServices } from '../hooks/useTransportServices';
 
 const SearchPage: React.FC = () => {
@@ -55,7 +55,11 @@ const SearchPage: React.FC = () => {
 
           {/* Right Column: Map */}
           <div className="flex items-start justify-center w-full">
-            <MapPlaceholder />
+            <MapComponent 
+              fromCity={fromCity}
+              toCity={toCity}
+              services={services}
+            />
           </div>
         </div>
       </div>
