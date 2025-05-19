@@ -1,3 +1,5 @@
+import os
+import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from .routes import transport, general
@@ -16,4 +18,9 @@ app.add_middleware(
 
 # Incluir routers
 app.include_router(general.router)
-app.include_router(transport.router) 
+app.include_router(transport.router)
+
+# Arranque del servidor (necesario para Render.com)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8000))
+    uvicorn.run("main:app", host="0.0.0.0", port=port)
