@@ -40,3 +40,9 @@
 .read-the-docs {
     color: #888;
 }
+
+@media (prefers-color-scheme: dark) {
+    .read-the-docs {
+        color: #aaa;
+    }
+}

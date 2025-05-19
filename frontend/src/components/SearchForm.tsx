@@ -23,8 +23,8 @@ export const SearchForm: React.FC<SearchFormProps> = ({
   const availableToCities = cities.filter(city => city !== fromCity);
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
-      <form onSubmit={onSubmit} className="space-y-6">
+    <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-200 dark:border-gray-700" role="search">
+      <form onSubmit={onSubmit} className="space-y-4" aria-label="Search transport services">
         <div>
           <label htmlFor="fromCity" className="block text-sm font-semibold text-gray-700 dark:text-gray-200 mb-2">
             From City
@@ -42,6 +42,8 @@ export const SearchForm: React.FC<SearchFormProps> = ({
               }}
               className="w-full px-4 py-3 pr-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none text-base"
               required
+              aria-required="true"
+              aria-label="Select departure city"
             >
               <option value="">Select departure city</option>
               {cities.map((city) => (
@@ -50,7 +52,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
                 </option>
               ))}
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3" aria-hidden="true">
               <svg className="h-5 w-5 text-gray-500 dark:text-gray-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
@@ -69,6 +71,8 @@ export const SearchForm: React.FC<SearchFormProps> = ({
               onChange={(e) => setToCity(e.target.value)}
               className="w-full px-4 py-3 pr-10 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-900 text-gray-900 dark:text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500 appearance-none text-base"
               required
+              aria-required="true"
+              aria-label="Select destination city"
             >
               <option value="">Select destination city</option>
               {availableToCities.map((city) => (
@@ -77,7 +81,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
                 </option>
               ))}
             </select>
-            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+            <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3" aria-hidden="true">
               <svg className="h-5 w-5 text-gray-500 dark:text-gray-300" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
               </svg>
@@ -88,6 +92,7 @@ export const SearchForm: React.FC<SearchFormProps> = ({
           type="submit"
           disabled={loading}
           className="w-full bg-[#2563eb] hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 disabled:opacity-60 transition-colors text-base"
+          aria-label={loading ? 'Searching for transport services...' : 'Search for transport services'}
         >
           {loading ? 'Searching...' : 'Search'}
         </button>

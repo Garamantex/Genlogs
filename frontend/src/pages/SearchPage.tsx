@@ -27,12 +27,12 @@ const SearchPage = memo(() => {
   }, [searchServices]);
 
   return (
-    <div className="min-h-screen w-full bg-white dark:bg-gray-900 flex items-center justify-center">
+    <div className="min-h-screen w-full bg-white dark:bg-gray-900 flex items-center justify-center py-12">
       <div className="max-w-6xl mx-auto px-4">
         {/* Header with logo and title */}
-        <div className="flex items-center justify-between mb-10">
-          <img src={logo} alt="Logo" className="w-64 object-contain" />
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white text-center flex-1">Transport Services Search</h1>
+        <div className="flex flex-col items-center justify-center mb-10 gap-2 sm:flex-row sm:items-center sm:justify-between">
+          <img src={logo} alt="Logo" className="w-40 sm:w-64 object-contain" />
+          <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white text-center sm:text-left flex-1">Transport Services Search</h1>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
           {/* Left Column: Filters and Results */}
@@ -58,7 +58,7 @@ const SearchPage = memo(() => {
 
           {/* Right Column: Map */}
           <div className="flex items-start justify-center w-full">
-            <div className="min-w-[600px] max-w-[600px] w-[600px]">
+            <div className="w-full sm:w-full lg:min-w-[600px] lg:max-w-[600px] lg:w-[600px] px-0 sm:px-0 lg:px-0">
               <MapComponent 
                 fromCity={fromCity}
                 toCity={toCity}

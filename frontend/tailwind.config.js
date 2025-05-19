@@ -4,8 +4,13 @@ export default {
         "./index.html",
         "./src/**/*.{js,ts,jsx,tsx}",
     ],
+    darkMode: 'media',
     theme: {
-        extend: {},
+        extend: {
+            colors: {
+                // Puedes agregar colores personalizados aquí si es necesario
+            },
+        },
     },
     plugins: [],
 }

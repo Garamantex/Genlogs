@@ -7,7 +7,11 @@ interface ServicesListProps {
 }
 
 const ServiceItem = memo(({ service }: { service: TransportService }) => (
-  <div className="border border-gray-200 dark:border-gray-700 rounded-lg p-5 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center">
+  <div 
+    className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center"
+    role="article"
+    aria-label={`Transport service from ${service.from_city} to ${service.to_city} by ${service.company}`}
+  >
     <div>
       <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{service.company}</h3>
       <p className="text-sm text-gray-600 dark:text-gray-300">
@@ -34,17 +38,23 @@ export const ServicesList = memo(({ services }: ServicesListProps) => {
   );
 
   return (
-    <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg p-8 border border-gray-200 dark:border-gray-700">
-      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Available Transport Services</h2>
-      <List
-        height={400}
-        itemCount={services.length}
-        itemSize={100}
-        width="100%"
-        className="space-y-4"
-      >
-        {Row}
-      </List>
+    <div 
+      className="bg-gray-100 dark:bg-gray-800 rounded-2xl shadow-lg p-6 border border-gray-200 dark:border-gray-700"
+      role="region"
+      aria-label="Available Transport Services"
+    >
+      <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-4">Available Transport Services</h2>
+      <div role="list" aria-label="List of transport services">
+        <List
+          height={Math.min(services.length * 100, 400)}
+          itemCount={services.length}
+          itemSize={100}
+          width="100%"
+          className="space-y-4"
+        >
+          {Row}
+        </List>
+      </div>
     </div>
   );
 });
