@@ -48,7 +48,7 @@ export const useTransportServices = () => {
         }
       }
 
-      const response = await axios.get('https://genlogs.onrender.com//api/cities');
+      const response = await axios.get('https://genlogs.onrender.com/api/cities');
       const citiesData = response.data;
       setCities(citiesData);
       localStorage.setItem(CITIES_CACHE_KEY, JSON.stringify({
@@ -78,7 +78,7 @@ export const useTransportServices = () => {
 
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/transport-services/route/${encodeURIComponent(fromCity)}/${encodeURIComponent(toCity)}`
+        `https://genlogs.onrender.com/api/transport-services/route/${encodeURIComponent(fromCity)}/${encodeURIComponent(toCity)}`
       );
       setServices(response.data);
     } catch (err) {
