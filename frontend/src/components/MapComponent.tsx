@@ -2,6 +2,14 @@ import { useCallback, useState, memo, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, DirectionsRenderer } from '@react-google-maps/api';
 import type { TransportService } from '../types/transport';
 
+/**
+ * Props interface for the MapComponent
+ * @interface MapComponentProps
+ * @property {string} fromCity - The departure city
+ * @property {string} toCity - The destination city
+ * @property {TransportService[]} services - List of available transport services
+ * @property {boolean} shouldUpdate - Flag to trigger map updates
+ */
 interface MapComponentProps {
   fromCity: string;
   toCity: string;
@@ -9,16 +17,28 @@ interface MapComponentProps {
   shouldUpdate: boolean;
 }
 
+/**
+ * Map container style configuration
+ * @type {Object}
+ */
 const containerStyle = {
   width: '100%',
   height: '600px'
 };
 
+/**
+ * Default center coordinates for the map
+ * @type {Object}
+ */
 const defaultCenter = {
   lat: 0,
   lng: 0
 };
 
+/**
+ * Google Maps options configuration
+ * @type {Object}
+ */
 const mapOptions = {
   zoomControl: true,
   streetViewControl: false,
@@ -26,6 +46,12 @@ const mapOptions = {
   fullscreenControl: true,
 };
 
+/**
+ * MapComponent
+ * @description Interactive map component that displays transport routes between cities
+ * @param {MapComponentProps} props - Component props
+ * @returns {JSX.Element} Rendered map with route visualization
+ */
 const MapComponent = memo(({ fromCity, toCity, services, shouldUpdate }: MapComponentProps) => {
   const [directions, setDirections] = useState<google.maps.DirectionsResult | null>(null);
   const [map, setMap] = useState<google.maps.Map | null>(null);

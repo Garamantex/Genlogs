@@ -5,6 +5,12 @@ import { ServicesList } from '../components/ServicesList';
 import MapComponent from '../components/MapComponent';
 import { useTransportServices } from '../hooks/useTransportServices';
 
+/**
+ * SearchPage Component
+ * @description Main page component that handles transport services search functionality.
+ * Displays a search form, services list, and an interactive map.
+ * @returns {JSX.Element} Rendered search page with map and services list
+ */
 const SearchPage = memo(() => {
   const {
     fromCity,
@@ -18,8 +24,16 @@ const SearchPage = memo(() => {
     searchServices
   } = useTransportServices();
 
+  /**
+   * State to track if map should be updated with new search results
+   * @type {[boolean, React.Dispatch<React.SetStateAction<boolean>>]}
+   */
   const [shouldUpdateMap, setShouldUpdateMap] = useState(false);
 
+  /**
+   * Handles the search form submission
+   * @param {React.FormEvent} e - The form event
+   */
   const handleSearch = useCallback((e: React.FormEvent) => {
     e.preventDefault();
     searchServices();
@@ -29,13 +43,11 @@ const SearchPage = memo(() => {
   return (
     <div className="min-h-screen w-full bg-white dark:bg-gray-900 flex items-center justify-center py-12">
       <div className="max-w-6xl mx-auto px-4">
-        {/* Header with logo and title */}
         <div className="flex flex-col items-center justify-center mb-10 gap-2 sm:flex-row sm:items-center sm:justify-between">
           <img src={logo} alt="Logo" className="w-40 sm:w-64 object-contain" />
           <h1 className="text-3xl sm:text-4xl font-bold text-gray-900 dark:text-white md:text-center sm:text-left flex-1">Transport Services Search</h1>
         </div>
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-          {/* Left Column: Filters and Results */}
           <div className="flex flex-col h-full justify-start space-y-8">
             <SearchForm
               fromCity={fromCity}
@@ -56,7 +68,6 @@ const SearchPage = memo(() => {
             <ServicesList services={services} />
           </div>
 
-          {/* Right Column: Map */}
           <div className="flex items-start justify-center w-full">
             <div className="w-full sm:w-full lg:min-w-[600px] lg:max-w-[600px] lg:w-[600px] px-0 sm:px-0 lg:px-0">
               <MapComponent 

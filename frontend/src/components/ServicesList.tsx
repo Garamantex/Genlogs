@@ -2,10 +2,22 @@ import { memo } from 'react';
 import { FixedSizeList as List } from 'react-window';
 import type { TransportService } from '../types/transport';
 
+/**
+ * Props interface for the ServicesList component
+ * @interface ServicesListProps
+ * @property {TransportService[]} services - List of transport services to display
+ */
 interface ServicesListProps {
   services: TransportService[];
 }
 
+/**
+ * ServiceItem Component
+ * @description Individual service item component displaying transport service details
+ * @param {Object} props - Component props
+ * @param {TransportService} props.service - Transport service data
+ * @returns {JSX.Element} Rendered service item
+ */
 const ServiceItem = memo(({ service }: { service: TransportService }) => (
   <div 
     className="border border-gray-200 dark:border-gray-700 rounded-lg p-4 hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex justify-between items-center"
@@ -28,6 +40,12 @@ const ServiceItem = memo(({ service }: { service: TransportService }) => (
 
 ServiceItem.displayName = 'ServiceItem';
 
+/**
+ * ServicesList Component
+ * @description Displays a virtualized list of available transport services
+ * @param {ServicesListProps} props - Component props
+ * @returns {JSX.Element | null} Rendered list of services or null if empty
+ */
 export const ServicesList = memo(({ services }: ServicesListProps) => {
   if (services.length === 0) return null;
 

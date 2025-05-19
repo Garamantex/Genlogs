@@ -1,5 +1,16 @@
 import React from 'react';
 
+/**
+ * Props interface for the SearchForm component
+ * @interface SearchFormProps
+ * @property {string} fromCity - The selected departure city
+ * @property {Function} setFromCity - Function to update the departure city
+ * @property {string} toCity - The selected destination city
+ * @property {Function} setToCity - Function to update the destination city
+ * @property {string[]} cities - List of available cities for selection
+ * @property {boolean} loading - Loading state of the form
+ * @property {Function} onSubmit - Form submission handler
+ */
 interface SearchFormProps {
   fromCity: string;
   setFromCity: (city: string) => void;
@@ -10,6 +21,12 @@ interface SearchFormProps {
   onSubmit: (e: React.FormEvent) => void;
 }
 
+/**
+ * SearchForm Component
+ * @description A form component for searching transport services between cities
+ * @param {SearchFormProps} props - Component props
+ * @returns {JSX.Element} Rendered search form with city selection dropdowns
+ */
 export const SearchForm: React.FC<SearchFormProps> = ({
   fromCity,
   setFromCity,

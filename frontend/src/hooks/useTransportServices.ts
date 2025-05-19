@@ -3,9 +3,32 @@ import axios from 'axios';
 import type { TransportService } from '../types/transport';
 import { debounce } from 'lodash';
 
+/**
+ * Cache key for storing cities data in localStorage
+ * @constant {string}
+ */
 const CITIES_CACHE_KEY = 'cached_cities';
+
+/**
+ * Cache expiry time in milliseconds (24 hours)
+ * @constant {number}
+ */
 const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 hours
 
+/**
+ * Custom hook for managing transport services data and operations
+ * @description Handles fetching cities, searching transport services, and managing related state
+ * @returns {Object} Object containing state and functions for transport services
+ * @property {string} fromCity - Selected departure city
+ * @property {Function} setFromCity - Function to update departure city
+ * @property {string} toCity - Selected destination city
+ * @property {Function} setToCity - Function to update destination city
+ * @property {TransportService[]} services - List of available transport services
+ * @property {boolean} loading - Loading state
+ * @property {string} error - Error message if any
+ * @property {string[]} cities - List of available cities
+ * @property {Function} searchServices - Function to search for transport services
+ */
 export const useTransportServices = () => {
   const [fromCity, setFromCity] = useState('');
   const [toCity, setToCity] = useState('');
