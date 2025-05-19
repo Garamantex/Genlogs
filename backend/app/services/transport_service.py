@@ -10,9 +10,24 @@ class TransportServiceManager:
 
     @staticmethod
     def get_services_by_route(from_city: City, to_city: City) -> List[TransportService]:
+        # Caso 1: New York to Washington DC
+        if from_city == City.NEW_YORK and to_city == City.WASHINGTON_DC:
+            return [
+                service for service in transport_services 
+                if service.company in [TransportCompany.KNIGHT_SWIFT, TransportCompany.JB_HUNT, TransportCompany.YRC]
+            ]
+        
+        # Caso 2: San Francisco to Los Angeles
+        if from_city == City.SAN_FRANCISCO and to_city == City.LOS_ANGELES:
+            return [
+                service for service in transport_services 
+                if service.company in [TransportCompany.XPO, TransportCompany.SCHNEIDER, TransportCompany.LANDSTAR]
+            ]
+        
+        # Caso 3: Cualquier otra ruta
         return [
             service for service in transport_services 
-            if service.from_city == from_city and service.to_city == to_city
+            if service.company in [TransportCompany.UPS, TransportCompany.FEDEX]
         ]
 
     @staticmethod

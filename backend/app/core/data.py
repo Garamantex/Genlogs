@@ -40,17 +40,17 @@ transport_services = [
         from_city=City.SAN_FRANCISCO,
         to_city=City.LOS_ANGELES
     ),
-    # Other routes
+    # Default routes (UPS and FedEx for any other city combination)
     TransportService(
         company=TransportCompany.UPS,
         trucks_per_day=11,
-        from_city=City.OTHER,
-        to_city=City.OTHER
+        from_city=City.NEW_YORK,  # These cities don't matter as they're handled in the service
+        to_city=City.WASHINGTON_DC
     ),
     TransportService(
         company=TransportCompany.FEDEX,
         trucks_per_day=9,
-        from_city=City.OTHER,
-        to_city=City.OTHER
+        from_city=City.NEW_YORK,  # These cities don't matter as they're handled in the service
+        to_city=City.WASHINGTON_DC
     ),
 ] 

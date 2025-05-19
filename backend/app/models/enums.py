@@ -5,7 +5,6 @@ class City(str, Enum):
     WASHINGTON_DC = "Washington DC"
     SAN_FRANCISCO = "San Francisco"
     LOS_ANGELES = "Los Angeles"
-    OTHER = "Other"
 
 class TransportCompany(str, Enum):
     KNIGHT_SWIFT = "Knight-Swift Transport Services"

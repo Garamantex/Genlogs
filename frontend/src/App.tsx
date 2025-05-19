@@ -5,13 +5,11 @@ import './App.css'
 function App() {
   return (
     <Router>
-      <div className="bg-gray-100">
-        <main className="container mx-auto px-4 py-8">
-          <Routes>
-            <Route path="/" element={<SearchPage />} />
-          </Routes>
-        </main>
-      </div>
+      <main>
+        <Routes>
+          <Route path="/" element={<SearchPage />} />
+        </Routes>
+      </main>
     </Router>
   );
 }
